@@ -1,2 +1,4 @@
 # systemic-ts-service-runner
-Service runner for systemic-ts
+
+Runs [systemic-ts](https://www.npmjs.com/package/systemic-ts) systems
+

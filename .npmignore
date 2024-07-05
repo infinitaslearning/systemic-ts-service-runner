@@ -1,0 +1,10 @@
+.github/
+.husky/
+scripts/
+test/
+
+.eslintcache
+biome.json
+tsconfig.json
+tsup.config.ts
+jest.config.ts
