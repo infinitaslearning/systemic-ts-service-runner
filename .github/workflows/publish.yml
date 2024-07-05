@@ -40,9 +40,6 @@ jobs:
       - name: Build 🏗️
         run: npm run build
 
-      - name: Add license notice 📜
-        run: npm run license
-
       - name: Bump version 📈
         id: version
         run: |
