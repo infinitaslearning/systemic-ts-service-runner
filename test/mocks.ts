@@ -1,11 +1,11 @@
-import { systemic } from 'systemic-ts';
+import { systemic } from "systemic-ts";
 
 export function createSystemic() {
-  const system = systemic().add('foo', { foo: 'bar' }).add('bar', { bar: 'baz' });
+  const system = systemic().add("foo", { foo: "bar" }).add("bar", { bar: "baz" });
   return {
     start: jest.fn(() => system.start()),
     stop: jest.fn(() => system.stop()),
-  }
+  };
 }
 
 export function createLogger() {

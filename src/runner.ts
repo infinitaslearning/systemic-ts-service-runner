@@ -1,17 +1,15 @@
-import type { Systemic } from 'systemic-ts';
+import type { Systemic } from "systemic-ts";
 
-const signals = ['SIGINT', 'SIGTERM'] as const;
+const signals = ["SIGINT", "SIGTERM"] as const;
 
 interface RunnerOptions {
-  logger?: Record<'info' | 'error', (message: string) => void>;
+  logger?: Record<"info" | "error", (message: string) => void>;
 }
 
-export function runner<T extends Pick<Systemic<any>, 'start' | 'stop'>>(
+export function runner<T extends Pick<Systemic<any>, "start" | "stop">>(
   system: T,
-  options: RunnerOptions = {}
-): Pick<T, 'start' | 'stop'> {
-  const logger = options.logger || console;
-
+  { logger = console }: RunnerOptions = {},
+): Pick<T, "start" | "stop"> {
   function logError(error: unknown) {
     if (error instanceof Error && error.stack) {
       logger.error(error.stack);
@@ -22,42 +20,34 @@ export function runner<T extends Pick<Systemic<any>, 'start' | 'stop'>>(
     try {
       await system.stop();
     } catch (error) {
-      logger.error('System failed to stop.');
+      logger.error("System failed to stop.");
       logError(error);
     } finally {
       process.exit(code);
     }
   }
 
-  async function start(): Promise<ReturnType<T['start']>> {
-    try {
-      const components = await system.start();
-
-      process.on('error', (error) => {
-        logger.error('Unhandled error. Invoking shutdown.');
-        logError(error);
-        stopAndExit(1);
-      });
-
-      process.on('unhandledRejection', (error) => {
-        logger.error('Unhandled rejection. Invoking shutdown.');
-        logError(error);
-        stopAndExit(1);
-      });
-
-      signals.forEach((signal) => {
-        process.on(signal, () => {
-          logger.info(`Received ${signal}. Attempting to shutdown gracefully.`);
-          stopAndExit(0);
-        });
-      });
-
-      return components as ReturnType<T['start']>;
-    } catch (error) {
-      logger.error('System failed to start.');
+  async function start(): Promise<ReturnType<T["start"]>> {
+    process.on("error", (error) => {
+      logger.error("Unhandled error. Invoking shutdown.");
       logError(error);
-      process.exit(1);
+      stopAndExit(1);
+    });
+
+    process.on("unhandledRejection", (error) => {
+      logger.error("Unhandled rejection. Invoking shutdown.");
+      logError(error);
+      stopAndExit(1);
+    });
+
+    for (const signal of signals) {
+      process.on(signal, () => {
+        logger.info(`Received ${signal}. Attempting to shutdown gracefully.`);
+        stopAndExit(0);
+      });
     }
+
+    return system.start() as ReturnType<T["start"]>;
   }
 
   function stop() {
