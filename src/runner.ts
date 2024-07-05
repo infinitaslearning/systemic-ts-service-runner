@@ -27,7 +27,7 @@ export function runner<T extends Pick<Systemic<any>, "start" | "stop">>(
     }
   }
 
-  async function start(): Promise<ReturnType<T["start"]>> {
+  function start(): Promise<ReturnType<T["start"]>> {
     process.on("error", (error) => {
       logger.error("Unhandled error. Invoking shutdown.");
       logError(error);
@@ -47,7 +47,7 @@ export function runner<T extends Pick<Systemic<any>, "start" | "stop">>(
       });
     }
 
-    return system.start() as ReturnType<T["start"]>;
+    return system.start() as Promise<ReturnType<T["start"]>>;
   }
 
   function stop() {
