@@ -6,10 +6,10 @@ interface RunnerOptions {
   logger?: Record<"info" | "error", (message: string) => void>;
 }
 
-export function runner<T extends Pick<Systemic<any>, "start" | "stop">>(
+export function runner<T extends Pick<Systemic<any>, "start" | "stop" | "name">>(
   system: T,
   { logger = console }: RunnerOptions = {},
-): Pick<T, "start" | "stop"> {
+): Pick<T, "start" | "stop" | "name"> {
   function logError(error: unknown) {
     if (error instanceof Error && error.stack) {
       logger.error(error.stack);
@@ -27,7 +27,7 @@ export function runner<T extends Pick<Systemic<any>, "start" | "stop">>(
     }
   }
 
-  function start(): Promise<ReturnType<T["start"]>> {
+  async function start(): Promise<ReturnType<T["start"]>> {
     process.on("error", (error) => {
       logger.error("Unhandled error. Invoking shutdown.");
       logError(error);
@@ -47,7 +47,10 @@ export function runner<T extends Pick<Systemic<any>, "start" | "stop">>(
       });
     }
 
-    return system.start() as Promise<ReturnType<T["start"]>>;
+    const components = (await system.start()) as ReturnType<T["start"]>;
+    logger.info(`System ${system.name} started successfully.`);
+
+    return components;
   }
 
   function stop() {
@@ -57,5 +60,6 @@ export function runner<T extends Pick<Systemic<any>, "start" | "stop">>(
   return {
     start,
     stop,
+    name: system.name,
   };
 }

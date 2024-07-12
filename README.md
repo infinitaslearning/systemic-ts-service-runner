@@ -13,8 +13,7 @@ const system = systemic()
   .add('logger', initLogger()).dependsOn('config')
   .add('service', initService()).dependsOn('config', 'logger');
 
-const { logger } = await runner(system).start();
-logger.info('Service started');
+runner(system).start();
 ```
 
 ## Installation

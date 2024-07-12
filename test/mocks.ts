@@ -5,6 +5,7 @@ export function createSystemic() {
   return {
     start: jest.fn(() => system.start()),
     stop: jest.fn(() => system.stop()),
+    name: "test",
   };
 }
 
