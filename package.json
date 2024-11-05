@@ -1,6 +1,6 @@
 {
-  "name": "systemic-ts-service-runner",
-  "version": "1.0.1",
+  "name": "@ilpt/systemic-ts-service-runner",
+  "version": "0.0.0",
   "description": "Service runner for systemic-ts",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
