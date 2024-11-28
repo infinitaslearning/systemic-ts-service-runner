@@ -1,4 +1,4 @@
-import { systemic } from "systemic-ts";
+import { systemic } from "@ilpt/systemic-ts";
 
 export function createSystemic() {
   const system = systemic().add("foo", { foo: "bar" }).add("bar", { bar: "baz" });

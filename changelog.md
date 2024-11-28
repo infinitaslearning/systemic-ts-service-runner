@@ -1,6 +1,6 @@
 ### What's changed
 
-- No changelog has been added to this release
+- Migration from `systemic-ts` to `@ilpt/systemic-ts`
 
 ---
 

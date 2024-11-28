@@ -1,12 +1,12 @@
-# systemic-ts-service-runner
+# @ilpt/systemic-ts-service-runner
 
-Runs [systemic-ts](https://www.npmjs.com/package/systemic-ts) systems
+Runs [@ilpt//systemic-ts](https://www.npmjs.com/package/@ilpt/systemic-ts) systems
 
 ## TL;DR
 
 ```typescript
-import { systemic } from 'systemic-ts';
-import { runner } from 'systemic-ts-service-runner';
+import { systemic } from '@ilpt/systemic-ts';
+import { runner } from '@ilpt/systemic-ts-service-runner';
 
 const system = systemic()
   .add('config', initConfig(), { scoped: true })
@@ -19,13 +19,13 @@ runner(system).start();
 ## Installation
 
 ```bash
-npm install systemic-ts-service-runner
+npm install @ilpt/systemic-ts-service-runner
 ```
 
 ## Usage
 
 ```typescript
-import { runner } from 'systemic-ts-service-runner';
+import { runner } from '@ilpt/systemic-ts-service-runner';
 import system from './system';
 import emergencyLogger from './emergencyLogger';
 
@@ -37,7 +37,7 @@ runner(system, { logger: emergencyLogger }).start().then(components => {
 or with top level await:
 
 ```typescript
-import { runner } from 'systemic-ts-service-runner';
+import { runner } from '@ilpt/systemic-ts-service-runner';
 import system from './system';
 import emergencyLogger from './emergencyLogger';
 

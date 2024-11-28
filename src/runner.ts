@@ -1,4 +1,4 @@
-import type { Systemic } from "systemic-ts";
+import type { Systemic } from "@ilpt/systemic-ts";
 
 const signals = ["SIGINT", "SIGTERM"] as const;
 
