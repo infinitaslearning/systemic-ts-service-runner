@@ -1,6 +1,6 @@
 # @ilpt/systemic-ts-service-runner
 
-Runs [@ilpt//systemic-ts](https://www.npmjs.com/package/@ilpt/systemic-ts) systems
+Runs [@ilpt/systemic-ts](https://www.npmjs.com/package/@ilpt/systemic-ts) systems
 
 ## TL;DR
 
